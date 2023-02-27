@@ -16,26 +16,18 @@
         <div class="row">
             <div class="col-md-12 mt-5">
                 <div class="form-group">
-                    <input type="text" name="searchname" id="searchname" class="form-control"
+                    <input type="text" id="searchname" class="form-control username"
                         placeholder="Search Customer Data" />
                 </div>
                 {{ csrf_field() }}
-                <div class="show-data">
-                    <table class="table table-striped table-bordered" id="show_data_table">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Email</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                        </tbody>
-                    </table>
-                </div>
+                <div id="datasearch"></div>
             </div>
         </div>
     </div>
+
+    {{-- <input type="text" name="username"  class="form-control input-lg" placeholder="Enter Username"> --}}
+
+    {{-- <div id="datasearch"></div> --}}
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="js/jquery.min.js"></script>
@@ -57,13 +49,17 @@
                         },
                         success: function(response) {
                             $('#show_data_table').fadeIn();
-                            $('tbody').html(response);
+                            $('#datasearch').html(response);
                         }
                     });
                 } else {
                     $('#show_data_table').fadeOut();
                 }
 
+            });
+            $(document).on('click', 'li', function() {
+                $('.username').val($(this).text());
+                $('#usernameList').fadeOut();
             });
         });
     </script>

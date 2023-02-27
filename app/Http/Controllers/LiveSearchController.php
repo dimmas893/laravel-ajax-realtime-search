@@ -21,8 +21,19 @@ class LiveSearchController extends Controller
             $data = DB::table('users')
                 ->where('name', 'like', '%' . $customer_search . '%')
                 ->orWhere('email', 'like', '%' . $customer_search . '%')
-                ->orderBy('id', 'desc')
+                ->orderBy('id', 'desc')->take(2)
                 ->get();
+
+            $output = '<ul class="dropdown-menu"style="display:block; position:relative">';
+
+            foreach ($data as $row) {
+                $output .= '<li><a href="#">' . $row->name . '</a></li>';
+            }
+
+            $output .= '</ul>';
+            $output .= '<br>';
+            $output .= '<br>';
+            $output .= '<div>';
 
             $row_data = count($data);
             if ($row_data > 0) {
@@ -37,6 +48,8 @@ class LiveSearchController extends Controller
 		     	        <td align="center" colspan="5">No Data Found</td>
 		     	       </tr>';
             }
+
+            $output .= '</div>';
             echo $output;
         }
     }
